@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author as2i
@@ -38,7 +35,7 @@ public class ApplicationTest {
     }
 
     @Test
-    public void redisCatchMapTest() {
+    public void redisCatchMapTest() throws InterruptedException {
         Map<String, SysUser> userMap = new HashMap<>();
         userMap.put("1", new SysUser(1L, "张三", "123@qq.com", "13300000000"));
         userMap.put("2", new SysUser(2L, "lisi", "123@qq.com", "13300000001"));
@@ -57,5 +54,16 @@ public class ApplicationTest {
         Map<String, SysUser> cacheMap = redisCache.getCacheMap("userMap");
 
         System.out.println(cacheMap);
+
+        redisCache.expire("userMap", 5);
+        Thread.sleep(8000);
+
+        System.out.println("=========================================");
+        System.out.println(redisCache.getCacheMap("userMap"));
+    }
+
+    @Test
+    public void deleteRedisCatch() {
+        redisCache.deleteObject("userList");
     }
 }
