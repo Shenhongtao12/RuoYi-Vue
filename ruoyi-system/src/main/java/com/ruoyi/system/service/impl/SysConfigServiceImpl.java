@@ -14,6 +14,7 @@ import com.ruoyi.system.service.ISysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Collection;
 import java.util.List;
 
@@ -40,6 +41,13 @@ public class SysConfigServiceImpl implements ISysConfigService
         loadingConfigCache();
     }
 
+    /**
+     * Bean销毁时调用的方法
+     */
+    @PreDestroy
+    public void destroy() {
+        System.out.println("=================SysConfigServiceImpl Bean destroy===========");
+    }
     /**
      * 查询参数配置信息
      * 

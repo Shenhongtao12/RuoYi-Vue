@@ -99,6 +99,13 @@ public class SysUser extends BaseEntity
 
     }
 
+    public SysUser(Long userId, String nickName, String email, String phonenumber) {
+        this.userId = userId;
+        this.nickName = nickName;
+        this.email = email;
+        this.phonenumber = phonenumber;
+    }
+
     public SysUser(Long userId)
     {
         this.userId = userId;
