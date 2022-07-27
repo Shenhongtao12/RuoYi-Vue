@@ -1,19 +1,20 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
+
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.system.domain.SysMemo;
 
 /**
  * 备忘录Service接口
- * 
+ *
  * @author aaron
  * @date 2022-07-23
  */
-public interface ISysMemoService 
-{
+public interface ISysMemoService {
     /**
      * 查询备忘录
-     * 
+     *
      * @param noticeId 备忘录主键
      * @return 备忘录
      */
@@ -21,7 +22,7 @@ public interface ISysMemoService
 
     /**
      * 查询备忘录列表
-     * 
+     *
      * @param sysMemo 备忘录
      * @return 备忘录集合
      */
@@ -29,7 +30,7 @@ public interface ISysMemoService
 
     /**
      * 新增备忘录
-     * 
+     *
      * @param sysMemo 备忘录
      * @return 结果
      */
@@ -37,7 +38,7 @@ public interface ISysMemoService
 
     /**
      * 修改备忘录
-     * 
+     *
      * @param sysMemo 备忘录
      * @return 结果
      */
@@ -45,7 +46,7 @@ public interface ISysMemoService
 
     /**
      * 批量删除备忘录
-     * 
+     *
      * @param noticeIds 需要删除的备忘录主键集合
      * @return 结果
      */
@@ -53,9 +54,11 @@ public interface ISysMemoService
 
     /**
      * 删除备忘录信息
-     * 
+     *
      * @param noticeId 备忘录主键
      * @return 结果
      */
     public int deleteSysMemoByNoticeId(Long noticeId);
+
+    public AjaxResult updateInventoryById(Integer id, Integer num);
 }

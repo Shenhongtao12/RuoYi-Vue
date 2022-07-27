@@ -2,6 +2,9 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 import com.ruoyi.system.domain.SysMemo;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * 备忘录Mapper接口
@@ -58,4 +61,10 @@ public interface SysMemoMapper
      * @return 结果
      */
     public int deleteSysMemoByNoticeIds(Long[] noticeIds);
+
+    @Select("select inventory from sys_memo where notice_id = #{id} limit 1")
+    public Integer getInventoryById(Integer id);
+
+    @Update("update sys_memo set inventory = (inventory - #{num}) where notice_id = #{id}")
+    public int updateInventorybyId(@Param("id") Integer id, @Param("num") Integer num);
 }

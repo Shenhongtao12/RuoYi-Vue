@@ -30,6 +30,8 @@ public class SysMemo extends BaseEntity
     @Excel(name = "公告内容")
     private String noticeContent;
 
+    private Integer inventory;
+
     /** 公告状态（0正常 1关闭） */
     @Excel(name = "公告状态", readConverterExp = "0=正常,1=关闭")
     private String status;
@@ -78,6 +80,14 @@ public class SysMemo extends BaseEntity
     public String getStatus() 
     {
         return status;
+    }
+
+    public Integer getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Integer inventory) {
+        this.inventory = inventory;
     }
 
     @Override

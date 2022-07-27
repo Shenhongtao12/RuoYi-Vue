@@ -1,6 +1,7 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,5 +101,10 @@ public class SysMemoController extends BaseController
     public AjaxResult remove(@PathVariable Long[] noticeIds)
     {
         return toAjax(sysMemoService.deleteSysMemoByNoticeIds(noticeIds));
+    }
+
+    @PostMapping("updateInventory")
+    public AjaxResult updateInventoryById(@RequestBody Map<String, Integer> map) {
+        return sysMemoService.updateInventoryById(map.get("id"), map.get("num"));
     }
 }
