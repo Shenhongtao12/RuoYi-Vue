@@ -1,9 +1,12 @@
 package com.ruoyi.system.domain;
 
+import com.baomidou.mybatisplus.annotation.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
+
+import java.io.Serializable;
 
 /**
  * 备忘录对象 sys_memo
@@ -11,11 +14,13 @@ import com.ruoyi.common.core.domain.BaseEntity;
  * @author aaron
  * @date 2022-07-23
  */
-public class SysMemo extends BaseEntity
+@TableName("sys_memo")
+public class SysMemo extends BaseEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
     /** 公告ID */
+    @TableId(type = IdType.AUTO)
     private Long noticeId;
 
     /** 公告标题 */
@@ -35,6 +40,14 @@ public class SysMemo extends BaseEntity
     /** 公告状态（0正常 1关闭） */
     @Excel(name = "公告状态", readConverterExp = "0=正常,1=关闭")
     private String status;
+
+    /**
+     * 逻辑删除
+     * 插入时填充
+     */
+    @TableLogic
+    @TableField(fill = FieldFill.INSERT)
+    private Integer deleted;
 
     public void setNoticeId(Long noticeId) 
     {
@@ -90,6 +103,14 @@ public class SysMemo extends BaseEntity
         this.inventory = inventory;
     }
 
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -103,6 +124,7 @@ public class SysMemo extends BaseEntity
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
+            .append("deleted", getDeleted())
             .toString();
     }
 }

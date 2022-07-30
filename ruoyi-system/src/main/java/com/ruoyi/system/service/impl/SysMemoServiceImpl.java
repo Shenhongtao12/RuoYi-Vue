@@ -1,5 +1,6 @@
 package com.ruoyi.system.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -96,7 +97,8 @@ public class SysMemoServiceImpl implements ISysMemoService {
      */
     @Override
     public int deleteSysMemoByNoticeIds(Long[] noticeIds) {
-        return sysMemoMapper.deleteSysMemoByNoticeIds(noticeIds);
+        //sysMemoMapper.deleteSysMemoByNoticeIds(noticeIds);
+        return sysMemoMapper.deleteBatchIds(Arrays.asList(noticeIds));
     }
 
     /**
@@ -107,7 +109,8 @@ public class SysMemoServiceImpl implements ISysMemoService {
      */
     @Override
     public int deleteSysMemoByNoticeId(Long noticeId) {
-        return sysMemoMapper.deleteSysMemoByNoticeId(noticeId);
+        //sysMemoMapper.deleteSysMemoByNoticeId(noticeId)
+        return sysMemoMapper.deleteById(noticeId);
     }
 
     @Override

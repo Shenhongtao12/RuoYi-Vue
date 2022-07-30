@@ -1,6 +1,8 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.system.domain.SysMemo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -12,7 +14,7 @@ import org.apache.ibatis.annotations.Update;
  * @author aaron
  * @date 2022-07-23
  */
-public interface SysMemoMapper 
+public interface SysMemoMapper extends BaseMapper<SysMemo>
 {
     /**
      * 查询备忘录
