@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 /**
+ * mybatis-plus 自动注入字段默认值
  * @author as2i
  * @date 2022/7/30 16:16
  */

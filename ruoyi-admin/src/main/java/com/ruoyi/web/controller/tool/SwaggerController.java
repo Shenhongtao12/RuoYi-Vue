@@ -15,10 +15,10 @@ import com.ruoyi.common.core.controller.BaseController;
 @RequestMapping("/tool/swagger")
 public class SwaggerController extends BaseController
 {
-    //@PreAuthorize("@ss.hasPermi('tool:swagger:view')")
+    @PreAuthorize("@ss.hasPermi('tool:swagger:view')")
     @GetMapping()
     public String index()
     {
-        return redirect("/swagger-ui.html");
+        return redirect("/doc.html");
     }
 }
