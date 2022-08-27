@@ -90,4 +90,40 @@ public class InputStreamTest {
             }
         }
     }
+
+    /**
+     * 拷贝文件
+     */
+    @Test
+    public void copyTest() throws Exception {
+        File inFile = new File("D:" + File.separator + "as2i" + File.separator + "installPackage"
+                + File.separator + "Balsamiq Mockups 3.zip"); // 定义文件路径
+        File outFile = new File("D:" + File.separator + "test"
+                + File.separator + "copyFile.zip"); // 定义文件路径
+        long start = System.currentTimeMillis();
+
+        if (!inFile.exists()) { // 源文件不存在
+            System.out.println("源文件不存在！");
+            System.exit(1); // 程序退出
+        }
+        if(!outFile.getParentFile().exists()){
+            outFile.getParentFile().mkdirs();
+        }
+
+        InputStream input = Files.newInputStream(inFile.toPath());
+        OutputStream output = Files.newOutputStream(outFile.toPath());
+
+        int temp = 0;//保存每次读取的个数
+        byte[] data = new byte[8192]; // 每次读取7168字节
+
+        while ((temp = input.read(data)) != -1) { // 将每次读取进来的数据保存在字节数组里，并返回读取的个数
+            output.write(data, 0, temp); // 输出数组
+        }
+
+        long end = System.currentTimeMillis();
+        System.out.println("拷贝完成，所花费的时间：" + (end - start) + "毫秒");
+
+        input.close();
+        output.close();
+    }
 }
