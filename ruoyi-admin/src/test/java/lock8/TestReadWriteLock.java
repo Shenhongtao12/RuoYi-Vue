@@ -2,6 +2,7 @@ package lock8;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -15,12 +16,12 @@ public class TestReadWriteLock {
     public static void main(String[] args) {
         MyCacheLock myCache = new MyCacheLock();
         //写线程
-        for (int i = 1; i <= 5; i++) {
+        /*for (int i = 1; i <= 5; i++) {
             final int temp = i;
             new Thread(()->{
                 myCache.put(temp+"",temp+"");
             },String.valueOf(i)).start();
-        }
+        }*/
         for (int i = 1; i <= 10; i++) {
             final int temp = i;
             new Thread(()->{
@@ -40,7 +41,11 @@ class MyCacheLock{
     //存--》写的过程
     public void put(String key,Object value){
         reentrantReadWriteLock.writeLock().lock();
+
         try {
+            if (map.get("1") != null) {
+                return;
+            }
             System.out.println(Thread.currentThread().getName()+"写入"+key);
             map.put(key,value);
             System.out.println(Thread.currentThread().getName()+"写入成功");
@@ -52,16 +57,26 @@ class MyCacheLock{
     }
     //去--》读的过程
     public void get(String key){
+        if (map.get("1") == null) {
+            put("1", 123);
+        }
         reentrantReadWriteLock.readLock().lock();
         try {
-            System.out.println(Thread.currentThread().getName()+"读入"+key);
-            map.get(key);
-            System.out.println(Thread.currentThread().getName()+"读入成功");
+            System.out.println(Thread.currentThread().getName()+"读出"+key);
+
+            System.out.println(Thread.currentThread().getName()+"读出成功" + map.get("1"));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             reentrantReadWriteLock.readLock().unlock();
         }
+    }
+
+    public void asyncPut(String key,Object value) {
+        new Thread(() -> {
+            System.out.println("====================");
+            this.put(key, value);
+        });
     }
 }
 //自定义缓存

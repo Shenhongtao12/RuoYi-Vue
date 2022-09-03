@@ -42,17 +42,10 @@ public class SqliteDataSourceInterceptor implements Interceptor {
     public Object intercept(Invocation invocation) throws Exception {
         // 该方法写入自己的逻辑
         if (invocation.getTarget() instanceof StatementHandler) {
-            String dataSoureType = DynamicDataSourceContextHolder.getDataSourceType();
-            // judge dataSource type ,because sqlite can't use internal.core_project this express
-            // so we need to add "" for it or delete this 'internal.'
-            /*if (DataSourceType.SQLITE.name().equals(dataSoureType)) {
-                RoutingStatementHandler handler = (RoutingStatementHandler) invocation.getTarget();
-                StatementHandler delegate = (StatementHandler) ReflectUtil.getFieldValue(handler, "delegate");
-                BoundSql boundSql = delegate.getBoundSql();
-                String sql = boundSql.getSql();
-                sql = sql.replace("internal.", " ");
-                ReflectUtil.setFieldValue(boundSql, "sql", sql);
-            }*/
+            RoutingStatementHandler handler = (RoutingStatementHandler) invocation.getTarget();
+            BoundSql boundSql = handler.getBoundSql();
+            String sql = boundSql.getSql();
+            //sql = sql.replace("sortFields.", " ");
         }
         // SQL execute start time
         long startTimeMillis = System.currentTimeMillis();
