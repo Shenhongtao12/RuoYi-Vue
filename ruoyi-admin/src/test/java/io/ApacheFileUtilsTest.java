@@ -9,6 +9,11 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * apache File Utils Test
@@ -91,6 +96,52 @@ public class ApacheFileUtilsTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void zipOutFile() throws IOException {
+        // 压缩文件
+        List<String> list = new ArrayList();
+        list.add("D:\\test\\memo.txt");
+        list.add("D:\\test\\memo1.txt");
+        list.add("D:\\test\\list.txt");
+        list.add("D:\\test\\nioCopy.txt");
+        list.add("D:\\test\\copyFile.zip");
+        list.add("D:\\test\\images\\fb2d5da3-d41f-41a3-997b-5f4c519ed9d9.jpg");
+        list.add("D:\\test\\images\\fxxxx.jpg");
+
+        //定义压缩文件夹的名称和相关的位置
+        File zipFile = new File("D:\\test\\" + "test222.zip");
+        InputStream input = null;
+        //定义压缩输出流
+        ZipOutputStream zipOut = null;
+        //实例化压缩输出流  并定制压缩文件的输出路径
+        long start = System.currentTimeMillis();
+        zipOut = new ZipOutputStream(Files.newOutputStream(zipFile.toPath()));
+        for (String o : list) {
+            File file = new File(o);
+            if (!file.exists()) {
+                continue;
+            }
+            zipOut.putNextEntry(new ZipEntry(file.getName()));
+            //设置注释
+            zipOut.setComment("www.demo.com");
+
+            // 方案一：使用fileUtils
+            //FileUtils.copyFile(file, zipOut);
+
+            //方案二：原生
+            int temp = 0;
+            //定义输入文件流
+            input = Files.newInputStream(file.toPath());
+            byte[] data = new byte[7168]; // 每次读取7168字节
+            while ((temp = input.read(data))!=-1){
+                zipOut.write(data, 0, temp);
+            }
+            input.close();
+        }
+        System.out.println("耗时：" + (System.currentTimeMillis() - start));
+        zipOut.close();
     }
 
     @Test
