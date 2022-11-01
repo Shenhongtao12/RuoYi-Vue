@@ -73,7 +73,16 @@ public class SysConfigController extends BaseController
     @GetMapping(value = "/configKey/{configKey}")
     public AjaxResult getConfigKey(@PathVariable String configKey)
     {
-        return AjaxResult.success(configService.selectConfigByKey(configKey));
+        return AjaxResult.success("操作成功", configService.selectConfigByKey(configKey));
+    }
+
+    /**
+     * 根据参数键名查询参数值
+     */
+    @GetMapping(value = "/configKey/getIsRegister")
+    public AjaxResult getIsRegister()
+    {
+        return AjaxResult.success("操作成功", configService.selectConfigByKey("sys.account.registerUser"));
     }
 
     /**
