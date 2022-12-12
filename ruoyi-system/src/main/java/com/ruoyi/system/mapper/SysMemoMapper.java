@@ -3,6 +3,8 @@ package com.ruoyi.system.mapper;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
 import com.ruoyi.system.domain.SysMemo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -22,14 +24,16 @@ public interface SysMemoMapper extends BaseMapper<SysMemo>
      * @param noticeId 备忘录主键
      * @return 备忘录
      */
+    @DataSource(value = DataSourceType.SLAVE)
     public SysMemo selectSysMemoByNoticeId(Long noticeId);
 
     /**
      * 查询备忘录列表
      * 
-     * @param sysMemo 备忘录
+     * @param sysMemo 备忘录切换到SLAVE数据源
      * @return 备忘录集合
      */
+    @DataSource(value = DataSourceType.SLAVE)
     public List<SysMemo> selectSysMemoList(SysMemo sysMemo);
 
     /**

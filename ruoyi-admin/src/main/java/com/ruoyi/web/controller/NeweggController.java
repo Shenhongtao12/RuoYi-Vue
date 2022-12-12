@@ -2,6 +2,7 @@ package com.ruoyi.web.controller;
 
 import com.ruoyi.common.utils.http.HttpUtils;
 import com.ruoyi.common.utils.uuid.UUID;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RestController
 @RequestMapping("api-test")
+@Tag(name = "自定义测试")
 public class NeweggController {
 
     @GetMapping("getImage")
@@ -30,7 +32,11 @@ public class NeweggController {
         int r = 0;
         ServletOutputStream outputStream = response.getOutputStream();
         String fileName = UUID.fastUUID() + imageUrl.substring(imageUrl.lastIndexOf("."));
-        FileOutputStream fileOutputStream = new FileOutputStream("D:\\test\\images\\" + fileName);
+        File file = new File("D:\\test\\images\\");
+        if (!file.isDirectory()) {
+            file.mkdirs();
+        }
+        FileOutputStream fileOutputStream = new FileOutputStream(file.getCanonicalPath() + "\\" + fileName);
 
         long start = System.currentTimeMillis();
         while ((r = fis.read(buffer)) != -1) {

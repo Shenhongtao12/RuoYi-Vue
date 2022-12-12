@@ -2,6 +2,8 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +32,7 @@ import com.ruoyi.system.service.ISysConfigService;
  */
 @RestController
 @RequestMapping("/system/config")
+@Tag(name = "配置相关信息")
 public class SysConfigController extends BaseController
 {
     @Autowired

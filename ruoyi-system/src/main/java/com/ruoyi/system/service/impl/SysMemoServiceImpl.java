@@ -35,7 +35,7 @@ public class SysMemoServiceImpl implements ISysMemoService {
 
     Lock lock = new ReentrantLock();
 
-    @PostConstruct
+    //@PostConstruct
     public void init() {
         Integer inventory = sysMemoMapper.getInventoryById(10);
         redisCache.setCacheObject("inventory-" + 10, inventory);
