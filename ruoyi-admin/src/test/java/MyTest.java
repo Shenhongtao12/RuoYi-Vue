@@ -1,15 +1,18 @@
-import com.ruoyi.common.core.domain.entity.SysUser;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author as2i
  * @date 5/28/2022 1:24 PM
  */
 public class MyTest {
+
+    @Test
+    void stringFormat() {
+        int aa = 111;
+        String bb = "aaaa";
+
+        System.out.printf("aefawef %d, awegfawe [%s]%n", aa, bb);
+    }
 
     @Test
     void test() {
