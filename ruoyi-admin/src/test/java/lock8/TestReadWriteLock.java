@@ -3,6 +3,7 @@ package lock8;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -41,7 +42,7 @@ class MyCacheLock{
     //存--》写的过程
     public void put(String key,Object value){
         reentrantReadWriteLock.writeLock().lock();
-
+        System.out.println("put: " + Thread.currentThread().getName());
         try {
             if (map.get("1") != null) {
                 return;
@@ -62,8 +63,9 @@ class MyCacheLock{
         }
         reentrantReadWriteLock.readLock().lock();
         try {
+            TimeUnit.MILLISECONDS.sleep(Math.round((Math.random()* 1000)));
             System.out.println(Thread.currentThread().getName()+"读出"+key);
-
+            TimeUnit.MILLISECONDS.sleep(Math.round((Math.random()* 2000)));
             System.out.println(Thread.currentThread().getName()+"读出成功" + map.get("1"));
         } catch (Exception e) {
             e.printStackTrace();

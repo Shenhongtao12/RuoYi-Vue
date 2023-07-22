@@ -20,9 +20,11 @@ public class ThreadTest {
             synchronized (lock) {
                 for (int i = 0; i <= 100; i = i + 2) {
                     logger.info(i + "");
+                    lock.notify();
                     try {
-                        lock.notify();
-                        lock.wait();
+                        if (i != 100) {
+                            lock.wait();
+                        }
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -33,10 +35,10 @@ public class ThreadTest {
 
         Thread thread2 = new Thread(() -> {
             synchronized (lock) {
-                for (int i = 1; i < 100; i = i + 2) {
+                for (int i = 1; i <= 100; i = i + 2) {
                     logger.info(i + "");
+                    lock.notify();
                     try {
-                        lock.notify();
                         lock.wait();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);

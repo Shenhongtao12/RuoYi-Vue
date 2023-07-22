@@ -14,7 +14,7 @@ public class SemaphoreTest {
         //以抢车位为例，设置三个车位供抢
         Semaphore semaphore = new Semaphore(3);
 
-        for (int i = 1; i <= 6; i++) {
+        for (int i = 1; i <= 8; i++) {
             new Thread(()->{
                 try {
                     semaphore.acquire();

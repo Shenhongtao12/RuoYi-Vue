@@ -27,8 +27,17 @@ public class Test01 {
         }
 
         new Thread(() -> {
-            phone.call();
+            phone.call("phone");
+
+            /* 因为phone执行call方法会等待，导致Phone2需要等待phone执行完才能执行 */
+            Phone phone2 = new Phone();
+            phone2.call("phone2");
         }, "B").start();
+
+        new Thread(() -> {
+            Phone phone1 = new Phone();
+            phone1.call("phone1");
+        }, "C").start();
     }
 }
 
@@ -44,8 +53,8 @@ class Phone {
         System.out.println("发短信");
     }
 
-    public synchronized void call() {
-        System.out.println("打电话");
+    public synchronized void call(String name) {
+        System.out.println(name + ": 打电话");
     }
 
 }
